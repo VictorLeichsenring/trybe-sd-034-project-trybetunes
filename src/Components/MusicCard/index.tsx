@@ -1,5 +1,6 @@
 import checkedHeart from '../../images/checked_heart.png';
 import emptyHeart from '../../images/empty_heart.png';
+import { addSong, removeSong } from '../../services/favoriteSongsAPI';
 
 type MusicCardProps = {
   trackId: number;
@@ -15,11 +16,19 @@ function MusicCard({
   previewUrl,
   favoriteMusic,
   setFavoriteMusic }: MusicCardProps) {
-  const handleCheckboxChange = () => {
+  const handleCheckboxChange = async () => {
     if (favoriteMusic.includes(trackId)) {
       setFavoriteMusic((prevState) => prevState.filter((id) => id !== trackId));
+      await removeSong({
+        trackId,
+        trackName,
+        previewUrl });
     } else {
       setFavoriteMusic((prevState) => [...prevState, trackId]);
+      await addSong({
+        trackId,
+        trackName,
+        previewUrl });
     }
   };
   return (
