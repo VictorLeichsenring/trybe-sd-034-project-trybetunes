@@ -4,6 +4,7 @@ import getMusics from '../../services/musicsAPI';
 import Carregandomsg from '../../Components/Carregandomsg';
 import MusicCard from '../../Components/MusicCard';
 import { AlbumType, SongType } from '../../types';
+import { getFavoriteSongs } from '../../services/favoriteSongsAPI';
 
 type AlbumProps = {
   favoriteMusic: number[];
@@ -37,6 +38,19 @@ function Album({ favoriteMusic, setFavoriteMusic }: AlbumProps) {
 
     fetchMusics();
   }, [albumId]);
+
+  useEffect(() => {
+    async function fetchFavoriteSongs() {
+      try {
+        const favorites = await getFavoriteSongs();
+        setFavoriteMusic(favorites.map((song) => song.trackId));
+      } catch (error) {
+        console.error('Erro ao buscar músicas favoritas:', error);
+      }
+    }
+
+    fetchFavoriteSongs();
+  }, [setFavoriteMusic]);
 
   return (
     <div>
