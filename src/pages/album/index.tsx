@@ -7,8 +7,8 @@ import { AlbumType, SongType } from '../../types';
 import { getFavoriteSongs } from '../../services/favoriteSongsAPI';
 
 type AlbumProps = {
-  favoriteMusic: number[];
-  setFavoriteMusic: React.Dispatch<React.SetStateAction<number[]>>;
+  favoriteMusic: SongType[];
+  setFavoriteMusic: React.Dispatch<React.SetStateAction<SongType[]>>;
 };
 
 function Album({ favoriteMusic, setFavoriteMusic }: AlbumProps) {
@@ -43,7 +43,7 @@ function Album({ favoriteMusic, setFavoriteMusic }: AlbumProps) {
     async function fetchFavoriteSongs() {
       try {
         const favorites = await getFavoriteSongs();
-        setFavoriteMusic(favorites.map((song) => song.trackId));
+        setFavoriteMusic(favorites.map((song) => song));
       } catch (error) {
         console.error('Erro ao buscar músicas favoritas:', error);
       }

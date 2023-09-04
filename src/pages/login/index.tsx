@@ -34,10 +34,9 @@ function Login() {
           data-testid="login-name-input"
           placeholder="Insira seu Nome"
           value={ name }
-          onChange={ ({ target }) => setName(target.value) }
+          onChange={ ({ target: { value } }) => setName(value) }
         />
         <button
-          type="submit"
           data-testid="login-submit-button"
           disabled={ !nameLenght(name) }
         >

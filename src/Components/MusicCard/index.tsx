@@ -1,13 +1,14 @@
 import checkedHeart from '../../images/checked_heart.png';
 import emptyHeart from '../../images/empty_heart.png';
 import { addSong, removeSong } from '../../services/favoriteSongsAPI';
+import { SongType } from '../../types';
 
 type MusicCardProps = {
   trackId: number;
   trackName: string;
   previewUrl: string;
-  favoriteMusic: number[];
-  setFavoriteMusic: React.Dispatch<React.SetStateAction<number[]>>;
+  favoriteMusic: SongType[];
+  setFavoriteMusic: React.Dispatch<React.SetStateAction<SongType[]>>;
 };
 
 function MusicCard({
@@ -16,15 +17,18 @@ function MusicCard({
   previewUrl,
   favoriteMusic,
   setFavoriteMusic }: MusicCardProps) {
+  const isFavorite = favoriteMusic.some((music) => music.trackId === trackId);
   const handleCheckboxChange = async () => {
-    if (favoriteMusic.includes(trackId)) {
-      setFavoriteMusic((prevState) => prevState.filter((id) => id !== trackId));
+    if (isFavorite) {
+      setFavoriteMusic(
+        (prevState) => prevState.filter((music) => music.trackId !== trackId),
+      );
       await removeSong({
         trackId,
         trackName,
         previewUrl });
     } else {
-      setFavoriteMusic((prevState) => [...prevState, trackId]);
+      setFavoriteMusic((prevState) => [...prevState, { trackId, trackName, previewUrl }]);
       await addSong({
         trackId,
         trackName,
@@ -44,11 +48,11 @@ function MusicCard({
       <label data-testid={ `checkbox-music-${trackId}` }>
         <input
           type="checkbox"
-          checked={ favoriteMusic.includes(trackId) }
+          checked={ isFavorite }
           onChange={ handleCheckboxChange }
         />
         <img
-          src={ favoriteMusic.includes(trackId) ? checkedHeart : emptyHeart }
+          src={ isFavorite ? checkedHeart : emptyHeart }
           alt="favorite"
         />
       </label>
