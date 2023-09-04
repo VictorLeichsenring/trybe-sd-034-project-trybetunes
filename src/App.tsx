@@ -1,7 +1,14 @@
-// comentário para comit
+import { Routes, Route } from 'react-router-dom';
+import Login from './pages/login';
+
 function App() {
   return (
-    <p>Trybetunes</p>
+    <div>
+      <p>Trybetunes</p>
+      <Routes>
+        <Route path="/" element={ <Login /> }>Login</Route>
+      </Routes>
+    </div>
   );
 }
 
