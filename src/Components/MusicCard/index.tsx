@@ -1,15 +1,7 @@
 import checkedHeart from '../../images/checked_heart.png';
 import emptyHeart from '../../images/empty_heart.png';
 import { addSong, removeSong } from '../../services/favoriteSongsAPI';
-import { SongType } from '../../types';
-
-type MusicCardProps = {
-  trackId: number;
-  trackName: string;
-  previewUrl: string;
-  favoriteMusic: SongType[];
-  setFavoriteMusic: React.Dispatch<React.SetStateAction<SongType[]>>;
-};
+import { MusicCardProps } from '../../types';
 
 function MusicCard({
   trackId,

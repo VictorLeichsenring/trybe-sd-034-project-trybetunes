@@ -3,13 +3,8 @@ import { useParams } from 'react-router-dom';
 import getMusics from '../../services/musicsAPI';
 import Carregandomsg from '../../Components/Carregandomsg';
 import MusicCard from '../../Components/MusicCard';
-import { AlbumType, SongType } from '../../types';
+import { AlbumType, SongType, AlbumProps } from '../../types';
 import { getFavoriteSongs } from '../../services/favoriteSongsAPI';
-
-type AlbumProps = {
-  favoriteMusic: SongType[];
-  setFavoriteMusic: React.Dispatch<React.SetStateAction<SongType[]>>;
-};
 
 function Album({ favoriteMusic, setFavoriteMusic }: AlbumProps) {
   const { id: albumId } = useParams();

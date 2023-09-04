@@ -5,7 +5,7 @@ import Layout from './Components/layout';
 import Login from './pages/login';
 import Search from './pages/search';
 import Album from './pages/album';
-// import Favorites from './pages/favorites';
+import Favorites from './pages/favorites';
 
 function App() {
   const [albumsResult, setAlbumsResult] = useState<AlbumType[] | null>(null);
@@ -25,7 +25,7 @@ function App() {
             /> }
           />
           search
-          {/* <Route
+          <Route
             path="/favorites"
             element={
               <Favorites
@@ -33,7 +33,7 @@ function App() {
                 setFavoriteMusic={ setFavoriteMusic }
               />
             }
-          /> */}
+          />
           <Route
             path="/album/:id"
             element={ <Album

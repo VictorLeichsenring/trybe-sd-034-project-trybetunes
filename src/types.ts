@@ -25,3 +25,21 @@ export type SongType = {
 export type FavoriteMusic = {
   trackID: number,
 };
+
+export type MusicCardProps = {
+  trackId: number;
+  trackName: string;
+  previewUrl: string;
+  favoriteMusic: SongType[];
+  setFavoriteMusic: React.Dispatch<React.SetStateAction<SongType[]>>;
+};
+
+export type AlbumProps = {
+  favoriteMusic: SongType[];
+  setFavoriteMusic: React.Dispatch<React.SetStateAction<SongType[]>>;
+};
+
+export type FavoritesProp = {
+  favoriteMusic: SongType[],
+  setFavoriteMusic: React.Dispatch<React.SetStateAction<SongType[]>>
+};

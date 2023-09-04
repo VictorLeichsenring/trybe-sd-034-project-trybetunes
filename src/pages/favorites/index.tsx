@@ -1,25 +1,41 @@
-// import MusicCard from "../../Components/MusicCard";
-// import { SongType } from "../../types";
+import { useState, useEffect } from 'react';
+import MusicCard from '../../Components/MusicCard';
+import { FavoritesProp } from '../../types';
+import { getFavoriteSongs } from '../../services/favoriteSongsAPI';
+import Carregandomsg from '../../Components/Carregandomsg';
 
-// type FavoritesProp = {
-//   favoriteMusic: SongType[],
-//   setFavoriteMusic: React.Dispatch<React.SetStateAction<SongType[]>>
-// };
+function Favorites({ favoriteMusic, setFavoriteMusic }: FavoritesProp) {
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    async function fetchFavoriteSongs() {
+      try {
+        const favorites = await getFavoriteSongs();
+        setFavoriteMusic(favorites.map((song) => song));
+      } catch (error) {
+        console.error('Erro ao buscar músicas favoritas:', error);
+      }
+    }
 
-// function Favorites({ favoriteMusic, setFavoriteMusic }: FavoritesProp) {
+    fetchFavoriteSongs();
+    setIsLoading(false);
+  }, [setFavoriteMusic]);
+  return (
+    <div>
+      {isLoading && <Carregandomsg />}
+      {!isLoading && (
+        favoriteMusic.map((music) => (
+          <MusicCard
+            key={ music.trackId }
+            trackId={ music.trackId }
+            trackName={ music.trackName }
+            previewUrl={ music.previewUrl }
+            favoriteMusic={ favoriteMusic }
+            setFavoriteMusic={ setFavoriteMusic }
+          />
+        ))
+      )}
+    </div>
+  );
+}
 
-//   return (
-//     <div>
-//       <MusicCard
-//         key={ music.trackId }
-//         trackId={ music.trackId }
-//         trackName={ music.trackName }
-//         previewUrl={ music.previewUrl }
-//         favoriteMusic={ favoriteMusic }
-//         setFavoriteMusic={ setFavoriteMusic }
-//       />
-//     </div>
-//   );
-// }
-
-// export default Favorites;
+export default Favorites;
