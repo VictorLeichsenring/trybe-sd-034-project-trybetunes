@@ -4,7 +4,6 @@ import Login from './pages/login';
 import Search from './pages/search';
 import { AlbumType } from './types';
 import Album from './pages/album';
-import Header from './Components/Header/Header';
 import Layout from './Components/layout';
 
 function App() {
