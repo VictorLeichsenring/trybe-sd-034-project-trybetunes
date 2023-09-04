@@ -21,3 +21,7 @@ export type SongType = {
   trackName: string,
   previewUrl: string,
 };
+
+export type FavoriteMusic = {
+  trackID: number,
+};

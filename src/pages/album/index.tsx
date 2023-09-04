@@ -5,22 +5,27 @@ import Carregandomsg from '../../Components/Carregandomsg';
 import MusicCard from '../../Components/MusicCard';
 import { AlbumType, SongType } from '../../types';
 
-function Album() {
-  const { id } = useParams();
+type AlbumProps = {
+  favoriteMusic: number[];
+  setFavoriteMusic: React.Dispatch<React.SetStateAction<number[]>>;
+};
+
+function Album({ favoriteMusic, setFavoriteMusic }: AlbumProps) {
+  const { id: albumId } = useParams();
   const [isLoading, setIsLoading] = useState(true);
   const [albumInfo, setAlbumInfo] = useState<AlbumType | null>(null);
   const [musics, setMusics] = useState<SongType[]>([]);
 
   useEffect(() => {
     async function fetchMusics() {
-      if (!id) {
+      if (!albumId) {
         console.error('ID do álbum não fornecido');
         return;
       }
 
       try {
         setIsLoading(true);
-        const results = await getMusics(id);
+        const results = await getMusics(albumId);
         setAlbumInfo(results[0] as AlbumType);
         setMusics(results.slice(1) as SongType[]);
         setIsLoading(false);
@@ -31,25 +36,23 @@ function Album() {
     }
 
     fetchMusics();
-  }, [id]);
+  }, [albumId]);
 
   return (
     <div>
-      {/* Carregamento */}
       {isLoading && <Carregandomsg />}
-
-      {/* Exibindo informações do álbum */}
       {!isLoading && albumInfo && (
         <>
           <h2 data-testid="artist-name">{albumInfo.artistName}</h2>
           <h3 data-testid="album-name">{albumInfo.collectionName}</h3>
-
-          {/* Renderizar as músicas */}
           {musics.map((music) => (
             <MusicCard
               key={ music.trackId }
+              trackId={ music.trackId }
               trackName={ music.trackName }
               previewUrl={ music.previewUrl }
+              favoriteMusic={ favoriteMusic }
+              setFavoriteMusic={ setFavoriteMusic }
             />
           ))}
         </>

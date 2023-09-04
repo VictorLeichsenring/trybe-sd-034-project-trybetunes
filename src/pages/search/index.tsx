@@ -12,7 +12,6 @@ type SearchProps = {
 function Search({ albumsResult, setAlbumsResult }: SearchProps) {
   const [artistName, setArtistName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  // const [albumsResult, setAlbumsResult] = useState(null);
   const [searchedArtist, setSearchedArtist] = useState('');
 
   async function handleClickPesquisar(event: React.FormEvent<HTMLFormElement>) {
@@ -26,7 +25,6 @@ function Search({ albumsResult, setAlbumsResult }: SearchProps) {
   }
   return (
     <div>
-      {/* Formulário de pesquisa */}
       <form onSubmit={ handleClickPesquisar }>
         <input
           data-testid="search-artist-input"
@@ -42,16 +40,10 @@ function Search({ albumsResult, setAlbumsResult }: SearchProps) {
           Pesquisar
         </button>
       </form>
-
-      {/* Carregamento */}
       {isLoading && <Carregandomsg />}
-
-      {/* Exibir mensagem se não houver álbuns */}
       {albumsResult && albumsResult.length === 0 && (
         <div>Nenhum álbum foi encontrado</div>
       )}
-
-      {/* Exibir resultados se houver álbuns */}
       {albumsResult && albumsResult.length > 0 && (
         <div>
           <h2>

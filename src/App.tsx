@@ -8,6 +8,7 @@ import Layout from './Components/layout';
 
 function App() {
   const [albumsResult, setAlbumsResult] = useState<AlbumType[] | null>(null);
+  const [favoriteMusic, setFavoriteMusic] = useState<number[]>([]);
 
   return (
     <div>
@@ -23,7 +24,13 @@ function App() {
             /> }
           />
           search
-          <Route path="/album/:id" element={ <Album /> } />
+          <Route
+            path="/album/:id"
+            element={ <Album
+              favoriteMusic={ favoriteMusic }
+              setFavoriteMusic={ setFavoriteMusic }
+            /> }
+          />
         </Route>
 
       </Routes>
